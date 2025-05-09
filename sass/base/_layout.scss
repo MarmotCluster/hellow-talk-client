@@ -1,0 +1,17 @@
+.container {
+  background-color: white;
+  height: calc(max(280px, 100dvh) - 92px);
+  border-radius: 20px 20px 0 0;
+  overflow: hidden;
+  box-shadow: 0 -0.5rem 1rem 0 rgba(0, 0, 0, 0.08);
+
+  &-subtext {
+    display: flex;
+    align-items: flex-end;
+    height: 28px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #999;
+    padding-left: 18px;
+  }
+}

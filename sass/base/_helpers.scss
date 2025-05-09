@@ -1,0 +1,100 @@
+.fullscreen {
+  width: 100%;
+  height: 100%;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.flexy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.disablemousy {
+  touch-action: none;
+  pointer-events: none;
+  user-select: none;
+}
+
+.fd-column {
+  flex-direction: column;
+}
+
+.fd-row {
+  flex-direction: row;
+}
+
+.space-1rem {
+  & > *:not(:first-child) {
+    margin-top: 1rem;
+  }
+}
+
+.full {
+  &-width {
+    width: 100%;
+  }
+
+  &-height {
+    height: 100%;
+  }
+
+  &-mwidth {
+    min-width: 100%;
+  }
+
+  &-mheight {
+    min-height: 100%;
+  }
+}
+
+.parent {
+  &-w {
+    width: inherit;
+  }
+
+  &-h {
+    height: inherit;
+  }
+}
+
+.display-flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.roundy {
+  border-radius: 100px !important;
+}
+
+.p {
+  &-halfrem {
+    padding: 0.5rem;
+  }
+
+  &-1rem {
+    padding: 1rem;
+  }
+
+  &-1p5rem {
+    padding: 1.5rem;
+  }
+
+  &-2rem {
+    padding: 2rem;
+  }
+}
