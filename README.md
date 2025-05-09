@@ -1,1 +1,3 @@
-# hellow-talk-client
+# Hellow talk
+
+client for `hellow talk`
