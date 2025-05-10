@@ -1,4 +1,5 @@
 import Icon from '@/components/common/Icon';
+import GroupChatIcon from '@/components/common/icons/GroupChatIcon';
 import React, { useCallback, useMemo } from 'react';
 
 const Contacts = () => {
@@ -11,7 +12,9 @@ const Contacts = () => {
           <div className="contact-item__status" />
         </div>
 
-        <p className="contact-item__name">Jane Doe</p>
+        <div className="contact-item-texts">
+          <p className="contact-item__name">Jane Doe</p>
+        </div>
       </div>
     );
   }, []);
@@ -25,18 +28,21 @@ const Contacts = () => {
   }, []);
 
   return (
-    <div className="relative fullscreen display-flex fd-column">
-      <div className="parent-w p-1p5rem">
-        <div
-          className="parent-w display-flex align-center roundy"
-          style={{ backgroundColor: 'white', paddingLeft: 6 }}
-        >
-          <Icon />
+    <main className="relative fullscreen display-flex fd-column">
+      <div className="searchbar-wrapper">
+        <div className="searchbar">
+          <div className="searchbar-icon">
+            <Icon />
+          </div>
           <input
+            className="searchbar__input"
             type="text"
             placeholder="... Search"
-            style={{ outline: 'none', border: 'none', fontSize: 12 }}
           />
+        </div>
+
+        <div className="searchbar-groupchat flexy">
+          <GroupChatIcon />
         </div>
       </div>
 
@@ -48,7 +54,7 @@ const Contacts = () => {
           <div id="extramarginforinfinite" style={{ height: 80 }}></div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

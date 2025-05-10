@@ -6,7 +6,7 @@ import ProfileIcon from '../common/icons/ProfileIcon';
 
 type BottomMenuProps = {};
 
-const HIDE_ON_PATH = new Set(['/login', '/sign-up']);
+const HIDE_ON_PATH = new Set(['/login', '/sign-up', '/chat']);
 
 const BottomMenu = (props: BottomMenuProps) => {
   const {} = props;

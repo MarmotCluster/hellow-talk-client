@@ -1,5 +1,11 @@
 @use 'palette' as p;
 
-.bg-primary {
-  background-color: p.$primary-main;
+.bg {
+  &-primary {
+    background-color: p.$primary-main;
+  }
+
+  &-grey {
+    background-color: #f1f2f5;
+  }
 }

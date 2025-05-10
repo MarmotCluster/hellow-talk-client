@@ -46,12 +46,37 @@
   }
 
   &-item {
+    &:hover {
+      box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.06);
+    }
+
+    &:active {
+      background-color: #fafafa;
+      box-shadow: none;
+    }
+
+    cursor: pointer;
+    user-select: none;
     display: flex;
     align-items: center;
     height: 80px;
     padding-left: 18px;
+    transition: box-shadow 0.2s ease, background-color 0.2s ease;
+
+    &-texts {
+      width: 100%;
+      padding-left: 1rem;
+    }
+
+    &-datetime {
+      height: 56px;
+      padding-right: 18px;
+      font-size: 12px;
+      color: #d9d9d9;
+    }
 
     &__profile {
+      flex-shrink: 0;
       position: relative;
       border-radius: 100px;
       width: 56px;
@@ -79,8 +104,12 @@
     }
 
     &__name {
-      font-size: 18;
-      padding-left: 1rem;
+      font-size: 18px;
+    }
+
+    &__recentchat {
+      font-size: 12px;
+      color: #999;
     }
   }
 }
