@@ -1,11 +1,24 @@
 import ChatExitIcon from '@/components/common/icons/ChatExitIcon';
 import SubmitIcon from '@/components/common/icons/SubmitIcon';
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
 
 const Chat = () => {
   /* stores */
 
   const navigate = useNavigate();
+
+  /* refs */
+
+  const chatRef = useRef<HTMLDivElement>(null);
+
+  /* effects */
+
+  useEffect(() => {
+    if (!chatRef.current) return;
+
+    chatRef.current.scrollTop = 1000000;
+  }, []);
 
   /* renders */
 
@@ -78,6 +91,7 @@ const Chat = () => {
 
       <section
         id="chats"
+        ref={chatRef}
         style={{
           padding: `1rem`,
           overflow: 'scroll',

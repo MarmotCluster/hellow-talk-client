@@ -9,14 +9,6 @@
 }
 
 .searchbar {
-  &-wrapper {
-    width: inherit;
-    padding: 1.5rem;
-
-    display: flex;
-    column-gap: 18px;
-  }
-
   width: inherit;
   display: flex;
   align-items: center;
@@ -24,6 +16,14 @@
   background-color: white;
   padding-left: 6px;
   overflow: hidden;
+
+  &-wrapper {
+    width: inherit;
+    padding: 1.5rem;
+
+    display: flex;
+    column-gap: 18px;
+  }
 
   &-icon {
     flex-shrink: 0;
@@ -42,6 +42,8 @@
     border: none;
     font-size: 12px;
     background-color: transparent;
-    width: 100%;
+    width: calc(100% - 60px);
+    height: 32px;
+    overflow: hidden;
   }
 }

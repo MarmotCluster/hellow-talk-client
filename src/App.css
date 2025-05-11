@@ -174,11 +174,22 @@
 }
 .container-profile__edit-item > .first {
   font-weight: bold;
+  width: calc(100% - 4rem);
 }
 .container-profile__edit-item__value {
+  width: calc(100% - 4rem);
   font-size: 2rem;
   display: inline-block;
   padding-right: 0.5rem;
+}
+.container-profile__edit-item__value input {
+  padding: 0;
+  outline: none;
+  border: none;
+  width: 100%;
+  font-size: inherit;
+  font-weight: inherit;
+  color: #2552f4;
 }
 .container-profile__edit-item__button {
   width: 2rem;
@@ -298,7 +309,23 @@ label {
   border: none;
   font-size: 12px;
   background-color: transparent;
-  width: 100%;
+  width: calc(100% - 60px);
+  height: 32px;
+  overflow: hidden;
+}
+
+.blank-button {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+.active-button {
+  transition: opacity 0.2s ease;
+}
+.active-button:active {
+  opacity: 0.5;
 }
 
 .bottom-menu {
@@ -327,6 +354,12 @@ label {
 .bottom-menu__button:active {
   background-color: #e0e0e0;
 }
+.bottom-menu__button__secondary {
+  background-color: #2552f4;
+}
+.bottom-menu__button__secondary:active {
+  background-color: #16308e;
+}
 .bottom-menu__button-text {
   user-select: none;
   color: #999;
@@ -334,10 +367,18 @@ label {
 .bottom-menu__button-text-active {
   color: #2552f4;
 }
+.bottom-menu__button-text-bright {
+  color: #f4f4f4;
+}
 
 .contacts-container {
   height: calc(100% - 28px);
   overflow: scroll;
+}
+.contact-divider {
+  flex-shrink: 0;
+  width: 100%;
+  border-bottom: 1px solid #d9d9d9;
 }
 .contact-item {
   cursor: pointer;
@@ -345,10 +386,12 @@ label {
   display: flex;
   align-items: center;
   height: 80px;
-  padding-left: 18px;
+  padding: 0 18px;
+  border-bottom: 1px solid transparent;
   transition: box-shadow 0.2s ease, background-color 0.2s ease;
 }
 .contact-item:hover {
+  border-bottom: 1px solid #f4f4f4;
   box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.06);
 }
 .contact-item:active {
@@ -357,11 +400,17 @@ label {
 }
 .contact-item-texts {
   width: 100%;
-  padding-left: 1rem;
+  max-width: 100%;
+  padding: 0 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 .contact-item-datetime {
   height: 56px;
-  padding-right: 18px;
   font-size: 12px;
   color: #d9d9d9;
 }

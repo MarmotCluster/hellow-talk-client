@@ -24,8 +24,8 @@ const SubmitIcon = (props: SubmitIconProps) => {
           y2="28"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#2552F4" />
-          <stop offset="1" stop-color="#16308E" />
+          <stop stopColor="#2552F4" />
+          <stop offset="1" stopColor="#16308E" />
         </linearGradient>
       </defs>
     </svg>

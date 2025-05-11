@@ -88,12 +88,25 @@
 
         & > .first {
           font-weight: bold;
+          width: calc(100% - 4rem);
         }
 
         &__value {
+          width: calc(100% - 4rem);
           font-size: 2rem;
           display: inline-block;
           padding-right: 0.5rem;
+
+          & input {
+            padding: 0;
+            outline: none;
+            border: none;
+
+            width: 100%;
+            font-size: inherit;
+            font-weight: inherit;
+            color: p.$primary-main;
+          }
         }
 
         &__button {

@@ -1,5 +1,6 @@
-import Icon from '@/components/common/Icon';
-import GroupChatIcon from '@/components/common/icons/GroupChatIcon';
+import TopSearchBar from '@/components/features/TopSearchBar';
+import useStoreState from '@/hooks/useStoreState';
+import { useButtonGroupStore, usePrimarySearchStore } from '@/stores';
 import React, { useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 
@@ -7,6 +8,30 @@ const Chats = () => {
   /* stores */
 
   const navigate = useNavigate();
+
+  const [buttonGroup, setButtonGroup] = useStoreState(useButtonGroupStore);
+
+  const [search, setSearch] = useStoreState(usePrimarySearchStore);
+
+  /* functions */
+
+  const handleSearch = (e: React.ChangeEvent) => {
+    const newValue = (e.target as HTMLInputElement).value;
+    setSearch(newValue);
+  };
+
+  const toggleButtonGroup = useCallback(() => {
+    // setButtonGroup((v) => {
+    //   if (isCreatingGroup) {
+    //     setSelected(new Set());
+    //     return 'general';
+    //   }
+    //   return 'create-group';
+    // });
+    setSearch('');
+    setButtonGroup('create-group');
+    navigate('/contacts');
+  }, []);
 
   /* renders */
 
@@ -39,22 +64,10 @@ const Chats = () => {
 
   return (
     <div className="relative fullscreen display-flex fd-column">
-      <div className="searchbar-wrapper">
-        <div className="searchbar">
-          <div className="searchbar-icon">
-            <Icon />
-          </div>
-          <input
-            className="searchbar__input"
-            type="text"
-            placeholder="... Search"
-          />
-        </div>
-
-        <div className="searchbar-groupchat flexy">
-          <GroupChatIcon />
-        </div>
-      </div>
+      <TopSearchBar
+        toggleButtonGroup={toggleButtonGroup}
+        handleSearch={handleSearch}
+      />
 
       <div className="container">
         <p className="container-subtext">4 Chats</p>

@@ -14,7 +14,9 @@ const SafeAreaContainer = (
 
   /* states */
 
-  const [backgroundCls, setBackgroundCls] = useState('bg-primary');
+  const [backgroundCls, setBackgroundCls] = useState(
+    location.pathname === '/chat' ? 'bg-grey' : 'bg-primary'
+  );
 
   /* effects */
 
