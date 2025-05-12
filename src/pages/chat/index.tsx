@@ -1,6 +1,6 @@
 import ChatExitIcon from '@/components/common/icons/ChatExitIcon';
 import SubmitIcon from '@/components/common/icons/SubmitIcon';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 const Chat = () => {
@@ -11,6 +11,33 @@ const Chat = () => {
   /* refs */
 
   const chatRef = useRef<HTMLDivElement>(null);
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  /* states */
+
+  const [text, setText] = useState('');
+
+  /* functions */
+
+  const handleTextChange = (e: React.ChangeEvent) => {
+    setText((e.target as HTMLTextAreaElement).value);
+  };
+
+  const handleInput = (e: React.FormEvent) => {
+    if (!textareaRef.current) return;
+
+    const offset =
+      ((e.target as HTMLTextAreaElement).value.match(/\n/g)?.length ?? 0) * 14;
+
+    textareaRef.current.style.height = (14 + offset).toString() + 'px';
+  };
+
+  const handleSubmit = () => {
+    if (!text.length) return;
+    setText('');
+    textareaRef.current!.style.height = 'unset';
+  };
 
   /* effects */
 
@@ -23,115 +50,35 @@ const Chat = () => {
   /* renders */
 
   return (
-    <main
-      className="relative fullscreen display-flex fd-column overflow-hidden"
-      style={{ height: 'max(100dvh, 280px)' }}
-    >
-      <section style={{ backgroundColor: '#2552F4', padding: 16 }}>
-        <div
-          id="profile"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            rowGap: 12,
-            color: 'white',
-          }}
-        >
+    <main className="relative fullscreen display-flex fd-column overflow-hidden chat">
+      <section className="chat-topbar display-flex align-center">
+        <div className="chat-topbar-content">
           <button
+            className="chat-topbar__goback active-button"
             onClick={() => navigate('/chats')}
-            id="go-back"
-            style={{
-              cursor: 'pointer',
-              flexShrink: 0,
-              width: 48,
-              aspectRatio: `1/1`,
-              backgroundColor: 'transparent',
-              border: 'none',
-            }}
           >
             <ChatExitIcon />
           </button>
 
-          <div
-            id="profile-image"
-            style={{
-              flexShrink: 0,
-              width: 48,
-              aspectRatio: `1/1`,
-              backgroundColor: 'grey',
-              borderRadius: 100,
-              overflow: 'hidden',
-            }}
-          ></div>
+          <div className="chat-topbar__profile flexy"></div>
 
-          <div id="profile-texts" style={{ paddingLeft: 12 }}>
-            <p
-              id="profile-texts__name"
-              style={{
-                fontWeight: 'bold',
-                fontSize: 18,
-              }}
-            >
-              Beitris Pagaduan
-            </p>
-            <p
-              id="profile-texts__status"
-              style={{
-                fontWeight: 'lighter',
-                fontSize: 12,
-              }}
-            >
-              On-line
-            </p>
+          <div className="chat-topbar__profile-texts">
+            <p className="chat-topbar__profile-texts__name">Beitris Pagaduan</p>
+            <p className="chat-topbar__profile-texts__status">On-line</p>
           </div>
         </div>
       </section>
 
       {/* ! CORE  */}
 
-      <section
-        id="chats"
-        ref={chatRef}
-        style={{
-          padding: `1rem`,
-          overflow: 'scroll',
-          height: 'calc(100% - 80px)',
-          paddingBottom: `98px`,
-        }}
-      >
+      <section ref={chatRef} className="chat-content">
         {/* chat - member */}
 
-        <div
-          className="chat-item"
-          data-role="member"
-          style={{ display: 'flex', columnGap: 12 }}
-        >
-          <div
-            className="chat-item__profile"
-            style={{
-              flexShrink: 0,
-              height: 48,
-              aspectRatio: `1/1`,
-              backgroundColor: 'grey',
-              borderRadius: 100,
-            }}
-          ></div>
+        <div className="chat-content-item" data-role="member">
+          <div className="chat-content-item__profile"></div>
 
-          <div
-            className="chat-item__balloon"
-            style={{
-              backgroundColor: 'white',
-              borderRadius: `0 20px 20px 20px`,
-
-              padding: `.75rem`,
-            }}
-          >
-            <p
-              className="chat-item__balloon-text"
-              style={{
-                fontSize: 12,
-              }}
-            >
+          <div className="chat-content-item__balloon">
+            <p className="chat-content-item__balloon-text">
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
               ever since the 1500s, when an unknown printer took a galley of
@@ -144,12 +91,8 @@ const Chat = () => {
               Lorem Ipsum.
             </p>
             <p
-              className="chat-item__balloon-timestamp"
-              style={{
-                textAlign: 'right',
-                fontSize: 10,
-                color: '#999',
-              }}
+              className="chat-content-item__balloon-timestamp"
+              data-role="dark"
             >
               18:32
             </p>
@@ -158,29 +101,9 @@ const Chat = () => {
 
         {/* chat - mine */}
 
-        <div
-          className="chat-item"
-          data-role="me"
-          style={{ display: 'flex', columnGap: 12, paddingTop: '1rem' }}
-        >
-          <div
-            className="chat-item__balloon"
-            style={{
-              backgroundColor: 'white',
-              borderRadius: `20px 0 20px 20px`,
-
-              padding: `.75rem`,
-              color: 'white',
-              fontWeight: 520,
-              background: `linear-gradient(#2552F4, #224ADA)`,
-            }}
-          >
-            <p
-              className="chat-item__balloon-text"
-              style={{
-                fontSize: 12,
-              }}
-            >
+        <div className="chat-content-item" data-role="me">
+          <div className="chat-content-item__balloon">
+            <p className="chat-content-item__balloon-text">
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
               ever since the 1500s, when an unknown printer took a galley of
@@ -192,13 +115,27 @@ const Chat = () => {
               publishing software like Aldus PageMaker including versions of
               Lorem Ipsum.
             </p>
+            <p className="chat-content-item__balloon-timestamp">18:32</p>
+          </div>
+        </div>
+
+        {/* divider */}
+
+        <div className="chat-content-item__divider">
+          <p className="chat-content-item__divider-text">May. 7</p>
+        </div>
+
+        {/* R E P E A T */}
+        {/* chat - member */}
+
+        <div className="chat-content-item" data-role="member">
+          <div className="chat-content-item__profile"></div>
+
+          <div className="chat-content-item__balloon">
+            <p className="chat-content-item__balloon-text">sry for delay.</p>
             <p
-              className="chat-item__balloon-timestamp"
-              style={{
-                textAlign: 'right',
-                fontSize: 10,
-                fontWeight: 'normal',
-              }}
+              className="chat-content-item__balloon-timestamp"
+              data-role="dark"
             >
               18:32
             </p>
@@ -207,179 +144,35 @@ const Chat = () => {
 
         {/* divider */}
 
-        <div
-          id="divider"
-          style={{
-            position: 'relative',
-            marginTop: '1rem',
-            borderTop: '1px solid #c0c0c0',
-          }}
-        >
-          <p
-            className="divider-text"
-            style={{
-              position: 'absolute',
-              left: '50%',
-              color: '#c0c0c0',
-              fontSize: 10,
-              transform: 'translate(-50%, -50%)',
-              backgroundColor: '#F1F2F5',
-              padding: 8,
-            }}
-          >
-            May. 7
-          </p>
-        </div>
-
-        {/* R E P E A T */}
-        {/* chat - member */}
-
-        <div
-          className="chat-item"
-          data-role="member"
-          style={{ display: 'flex', columnGap: 12, marginTop: `1rem` }}
-        >
-          <div
-            className="chat-item__profile"
-            style={{
-              flexShrink: 0,
-              height: 48,
-              aspectRatio: `1/1`,
-              backgroundColor: 'grey',
-              borderRadius: 100,
-            }}
-          ></div>
-
-          <div
-            className="chat-item__balloon"
-            style={{
-              backgroundColor: 'white',
-              borderRadius: `0 20px 20px 20px`,
-
-              padding: `.75rem`,
-            }}
-          >
-            <p
-              className="chat-item__balloon-text"
-              style={{
-                fontSize: 12,
-              }}
-            >
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
-            </p>
-            <p
-              className="chat-item__balloon-timestamp"
-              style={{
-                textAlign: 'right',
-                fontSize: 10,
-                color: '#999',
-              }}
-            >
-              18:32
-            </p>
-          </div>
+        <div className="chat-content-item__divider">
+          <p className="chat-content-item__divider-text">May. 8</p>
         </div>
 
         {/* chat - mine */}
 
-        <div
-          className="chat-item"
-          data-role="me"
-          style={{ display: 'flex', columnGap: 12, paddingTop: '1rem' }}
-        >
-          <div
-            className="chat-item__balloon"
-            style={{
-              backgroundColor: 'white',
-              borderRadius: `20px 0 20px 20px`,
-
-              padding: `.75rem`,
-              color: 'white',
-              fontWeight: 520,
-              background: `linear-gradient(#2552F4, #224ADA)`,
-            }}
-          >
-            <p
-              className="chat-item__balloon-text"
-              style={{
-                fontSize: 12,
-              }}
-            >
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
-            </p>
-            <p
-              className="chat-item__balloon-timestamp"
-              style={{
-                textAlign: 'right',
-                fontSize: 10,
-                fontWeight: 'normal',
-              }}
-            >
-              18:32
-            </p>
+        <div className="chat-content-item" data-role="me">
+          <div className="chat-content-item__balloon">
+            <p className="chat-content-item__balloon-text">never mind</p>
+            <p className="chat-content-item__balloon-timestamp">18:32</p>
           </div>
         </div>
       </section>
 
       {/* ! CORE */}
 
-      <section
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          backgroundColor: 'white',
-          border: `1px solid #f4f4f4`,
-          width: '100%',
-          padding: '1rem',
-          borderRadius: `8px 8px 0 0`,
-          boxShadow: `0 -8px 16px 0 rgba(0,0,0,0.08)`,
-          display: 'flex',
-          columnGap: `1rem`,
-        }}
-      >
-        <textarea
-          rows={1}
-          style={{
-            display: 'block',
-            width: '100%',
-            backgroundColor: '#f4f4f4',
-            borderRadius: 100,
-            resize: 'none',
-            padding: '1rem',
-            border: 'none',
-            margin: 0,
-          }}
-          placeholder="Enter Message ..."
-        />
+      <section className="chat-textfield">
+        <div className="chat-textfield__textfield">
+          <textarea
+            ref={textareaRef}
+            onInput={handleInput}
+            rows={1}
+            placeholder="Enter Message ..."
+            value={text}
+            onChange={handleTextChange}
+          />
+        </div>
 
-        <button
-          style={{
-            display: 'block',
-            flexShrink: 0,
-            height: 48,
-            aspectRatio: `1/1`,
-            border: 'none',
-            backgroundColor: 'transparent',
-          }}
-        >
+        <button className="chat-textfield__submit" onClick={handleSubmit}>
           <SubmitIcon />
         </button>
       </section>

@@ -95,7 +95,7 @@ const Contacts = () => {
     return (
       <div className="contact-item" onClick={() => handleProfileClick(data.id)}>
         <div className="contact-item__profile">
-          <div className="contact-item__status" />
+          {data.status === 'online' && <div className="contact-item__status" />}
         </div>
 
         <div className="contact-item-texts">

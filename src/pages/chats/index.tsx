@@ -1,6 +1,11 @@
 import TopSearchBar from '@/components/features/TopSearchBar';
 import useStoreState from '@/hooks/useStoreState';
-import { useButtonGroupStore, usePrimarySearchStore } from '@/stores';
+import {
+  useButtonGroupStore,
+  useChatsStore,
+  usePrimarySearchStore,
+} from '@/stores';
+import type { ChatItem } from '@/stores/chats';
 import React, { useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 
@@ -12,6 +17,20 @@ const Chats = () => {
   const [buttonGroup, setButtonGroup] = useStoreState(useButtonGroupStore);
 
   const [search, setSearch] = useStoreState(usePrimarySearchStore);
+
+  const [chats, setChats] = useStoreState(useChatsStore);
+
+  /* memos */
+
+  const filtered = useMemo(() => {
+    if (!search.length) return chats;
+
+    return chats.filter((item) =>
+      [item.message, item.name].some(
+        (t) => t.toLocaleLowerCase().indexOf(search.toLocaleLowerCase()) > -1
+      )
+    );
+  }, [search]);
 
   /* functions */
 
@@ -35,7 +54,7 @@ const Chats = () => {
 
   /* renders */
 
-  const renderChats = useCallback(() => {
+  const renderChats = useCallback((data: ChatItem) => {
     return (
       <div className="contact-item" onClick={() => navigate('/chat')}>
         <div className="contact-item__profile">
@@ -43,24 +62,22 @@ const Chats = () => {
         </div>
 
         <div className="contact-item-texts">
-          <p className="contact-item__name">Betris Pagaduan</p>
-          <p className="contact-item__recentchat">where u at?</p>
+          <p className="contact-item__name">{data.name}</p>
+          <p className="contact-item__recentchat">{data.message}</p>
         </div>
 
         <div className="contact-item-datetime">
-          <p>08:33</p>
+          <p>{data.latestUpdatedAt}</p>
         </div>
       </div>
     );
   }, []);
 
   const chatElements = useMemo(() => {
-    return Array(30)
-      .fill(null)
-      .map((_, index) => (
-        <React.Fragment key={index}>{renderChats()}</React.Fragment>
-      ));
-  }, []);
+    return filtered.map((item) => (
+      <React.Fragment key={item.id}>{renderChats(item)}</React.Fragment>
+    ));
+  }, [filtered]);
 
   return (
     <div className="relative fullscreen display-flex fd-column">
@@ -70,7 +87,7 @@ const Chats = () => {
       />
 
       <div className="container">
-        <p className="container-subtext">4 Chats</p>
+        <p className="container-subtext">{filtered.length} Chats</p>
 
         <div className="contacts-container">
           {chatElements}

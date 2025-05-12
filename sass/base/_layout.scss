@@ -132,3 +132,190 @@
     }
   }
 }
+
+.chat {
+  height: max(100dvh, 280px);
+
+  &-textfield {
+    position: absolute;
+    bottom: 0;
+
+    background-color: white;
+    border: 1px solid #f4f4f4;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 -8px 16px 0 rgba(black, 0.08);
+
+    display: flex;
+    column-gap: 1rem;
+
+    max-height: calc(100% - 80px);
+
+    &__textfield {
+      padding: 1rem;
+
+      background-color: #f4f4f4;
+      border-radius: 24px;
+
+      width: 100%;
+      overflow: scroll;
+
+      & > textarea {
+        border: none;
+        resize: none;
+
+        display: block;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: transparent;
+
+        height: 14px;
+      }
+    }
+
+    &__submit {
+      &:active {
+        transform: scale(0.8);
+      }
+
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+
+      display: block;
+      flex-shrink: 0;
+      height: 48px;
+      aspect-ratio: 1/1;
+
+      transition: transform 0.2s ease;
+    }
+  }
+
+  &-content {
+    padding: 1rem;
+    overflow: scroll;
+    height: calc(100% - 80px);
+    padding-bottom: 98px;
+
+    &-item {
+      &:not(:first-child) {
+        margin-top: 1rem;
+      }
+
+      display: flex;
+      column-gap: 12px;
+
+      &__profile {
+        flex-shrink: 0;
+        height: 48px;
+        aspect-ratio: 1/1;
+        background-color: grey;
+        border-radius: 100px;
+      }
+
+      &__balloon {
+        padding: 0.75rem;
+        &-text {
+          font-size: 12px;
+        }
+
+        &-timestamp {
+          text-align: right;
+          font-size: 10px;
+
+          &[data-role='dark'] {
+            color: #999;
+          }
+        }
+      }
+
+      &[data-role='member'] > &__balloon {
+        background-color: white;
+        border-radius: 0 20px 20px 20px;
+      }
+
+      &[data-role='me'] {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      &[data-role='me'] > &__balloon {
+        background-color: white;
+        border-radius: 20px 0 20px 20px;
+
+        font-weight: 520;
+        background: linear-gradient(p.$primary-main, p.$primary-semi-dark);
+        color: white;
+      }
+
+      &__divider {
+        position: relative;
+        margin-top: 1rem;
+        border-top: 1px solid #c0c0c0;
+
+        color: #c0c0c0;
+        font-size: 10px;
+
+        &-text {
+          position: absolute;
+          left: 50%;
+          transform: translate(-50%, -50%);
+
+          background-color: #f1f2f5;
+          padding: 0.5rem;
+        }
+      }
+    }
+  }
+
+  &-topbar {
+    background-color: p.$primary-main;
+    padding: 0 1rem;
+    height: 80px;
+
+    &-content {
+      display: flex;
+      align-items: center;
+      row-gap: 12px;
+      color: white;
+    }
+
+    &__goback {
+      cursor: pointer;
+      flex-shrink: 0;
+      width: 48px;
+      aspect-ratio: 1/1;
+      background-color: transparent;
+      border: none;
+    }
+
+    &__profile {
+      flex-shrink: 0;
+      width: 48px;
+      aspect-ratio: 1/1;
+      background-color: grey;
+      border-radius: 100px;
+      overflow: hidden;
+      border: 4px solid p.$primary-main;
+      box-sizing: content-box;
+
+      font-size: 24px;
+
+      &-texts {
+        padding-left: 12px;
+
+        &__name {
+          font-weight: bold;
+          font-size: 18px;
+        }
+
+        &__status {
+          font-weight: lighter;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
