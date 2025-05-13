@@ -1,9 +1,11 @@
 import ProfileEditIcon from '@/components/common/icons/ProfileEditIcon';
 import Logo from '@/components/common/Logo';
-import TextField from '@/components/common/TextField';
+import useAuth from '@/hooks/useAuth';
 import useStoreValue from '@/hooks/useStoreValue';
 import { useMyProfileStore } from '@/stores';
+import { behave } from '@/utils';
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router';
 
 const Profile = () => {
   /* stores */
@@ -22,6 +24,12 @@ const Profile = () => {
 
   const [username, setUsername] = useState(profile.name);
 
+  /* hooks */
+
+  const navigate = useNavigate();
+
+  const { logout } = useAuth();
+
   /* functions */
 
   const handleToggle = () => {
@@ -30,6 +38,12 @@ const Profile = () => {
 
   const handleUsernameChange = (e: React.ChangeEvent) => {
     setUsername((e.target as HTMLInputElement).value);
+  };
+
+  const handleSignOut = () => {
+    const toLogin = () => navigate('/login', { replace: true });
+
+    behave(() => logout(), toLogin, toLogin);
   };
 
   /* effects */
@@ -45,7 +59,7 @@ const Profile = () => {
   /* renders */
 
   return (
-    <main className="relative fullscreen display-flex fd-column">
+    <main className="relative fullscreen display-flex fd-column bg-primary">
       <div className="topbar flexy">
         <Logo />
       </div>
@@ -104,6 +118,12 @@ const Profile = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="container-signout display-flex justify-center">
+          <button className="container-signout__button" onClick={handleSignOut}>
+            sign out
+          </button>
         </div>
 
         <div id="extramarginforinfinite" style={{ height: 80 }}></div>

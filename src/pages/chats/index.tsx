@@ -14,10 +14,12 @@ const Chats = () => {
 
   const navigate = useNavigate();
 
+  //@ts-ignore
   const [buttonGroup, setButtonGroup] = useStoreState(useButtonGroupStore);
 
   const [search, setSearch] = useStoreState(usePrimarySearchStore);
 
+  //@ts-ignore
   const [chats, setChats] = useStoreState(useChatsStore);
 
   /* memos */
@@ -80,7 +82,7 @@ const Chats = () => {
   }, [filtered]);
 
   return (
-    <div className="relative fullscreen display-flex fd-column">
+    <main className="relative fullscreen display-flex fd-column bg-primary">
       <TopSearchBar
         toggleButtonGroup={toggleButtonGroup}
         handleSearch={handleSearch}
@@ -94,7 +96,7 @@ const Chats = () => {
           <div id="extramarginforinfinite" style={{ height: 80 }}></div>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

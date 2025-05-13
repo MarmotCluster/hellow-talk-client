@@ -1,6 +1,8 @@
 import Logo from '@/components/common/Logo';
 import TextField from '@/components/common/TextField';
 import SteeredContainer from '@/components/layout/SteeredContainer';
+import useAuth from '@/hooks/useAuth';
+import { behave } from '@/utils';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
@@ -18,6 +20,8 @@ const SignIn = () => {
 
   const navigate = useNavigate();
 
+  const { login } = useAuth();
+
   /* functions */
 
   const handleChange = (e: React.FormEvent) => {
@@ -27,10 +31,22 @@ const SignIn = () => {
     setForm((v) => ({ ...v, [key]: input.value }));
   };
 
+  const handleSignIn = () => {
+    const { username, password } = form;
+    if (!username.length || !password.length) return;
+
+    behave(
+      () => login(username, password),
+      () => navigate('/contacts')
+    );
+  };
+
+  /* effects */
+
   /* renders */
 
   return (
-    <SteeredContainer direction="column" className="p-2rem">
+    <SteeredContainer direction="column" className="p-2rem bg-primary">
       <Logo />
 
       <div
@@ -52,36 +68,15 @@ const SignIn = () => {
           onChange={handleChange}
         />
 
-        <button
-          style={{
-            width: '100%',
-            padding: '1rem',
-            borderRadius: '.5rem',
-            outline: 'none',
-            border: '1px solid #204ce9',
-            backgroundColor: '#2552f4',
-            color: '#f4f4f4',
-            boxShadow: '0 12px 32px 2px rgba(0,0,0,0.16)',
-            cursor: 'pointer',
-            fontWeight: 'bold',
-            fontSize: 12,
-          }}
-          onClick={() => navigate('/contacts')}
-        >
+        <button className="auth-button" onClick={handleSignIn}>
           Log In
         </button>
 
         <p
-          style={{
-            fontSize: 12,
-            fontWeight: 'bold',
-            color: 'white',
-            userSelect: 'none',
-            cursor: 'pointer',
-          }}
+          className="auth-button__textButton active-button"
           onClick={() => navigate('/sign-up')}
         >
-          create account
+          have no account? <b>Register</b>
         </p>
       </div>
     </SteeredContainer>

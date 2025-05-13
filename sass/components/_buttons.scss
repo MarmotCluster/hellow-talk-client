@@ -153,3 +153,33 @@
     }
   }
 }
+
+.auth-button {
+  &:active {
+    transform: translateY(2px);
+    box-shadow: 0 0 0 0 rgba($color: black, $alpha: 0);
+  }
+
+  outline: none;
+  border: 1px solid p.$primary-border;
+
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: p.$primary-main;
+  color: #f4f4f4;
+  box-shadow: 0 12px 32px 2px rgba($color: black, $alpha: 0.16);
+
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 12px;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &__textButton {
+    cursor: pointer;
+    font-size: 12px;
+    color: white;
+    user-select: none;
+  }
+}

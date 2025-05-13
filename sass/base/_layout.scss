@@ -131,6 +131,27 @@
       }
     }
   }
+
+  &-signout {
+    padding-bottom: 1rem;
+
+    &__button {
+      &:active {
+        background-color: p.$primary-dark;
+      }
+
+      cursor: pointer;
+      border: none;
+
+      background-color: p.$primary-main;
+      color: #fafafa;
+      padding: 1rem;
+      border-radius: 100px;
+
+      width: calc(100% - 6rem);
+      transition: background-color 0.2s ease;
+    }
+  }
 }
 
 .chat {

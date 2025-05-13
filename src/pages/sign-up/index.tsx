@@ -1,7 +1,10 @@
 import Logo from '@/components/common/Logo';
 import TextField from '@/components/common/TextField';
 import SteeredContainer from '@/components/layout/SteeredContainer';
+import useAuth from '@/hooks/useAuth';
+import { behave } from '@/utils';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router';
 
 type Form = Record<
@@ -23,6 +26,8 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
+  const { register } = useAuth();
+
   /* functions */
 
   const handleChange = (e: React.FormEvent) => {
@@ -32,10 +37,34 @@ const SignUp = () => {
     setForm((v) => ({ ...v, [key]: input.value }));
   };
 
+  const handleSignUp = () => {
+    const { legalname: name, username, password, confirmPassword } = form;
+    if (
+      !name.length ||
+      !username.length ||
+      !password.length ||
+      !confirmPassword.length
+    )
+      return;
+
+    if (password !== confirmPassword) {
+      toast.error('passwords mismatching.');
+      return;
+    }
+
+    behave(
+      () => register(name, username, password),
+      () => {
+        toast.success('registed. please login.');
+        navigate('/login', { replace: true });
+      }
+    );
+  };
+
   /* renders */
 
   return (
-    <SteeredContainer direction="column" className="p-2rem">
+    <SteeredContainer direction="column" className="p-2rem bg-primary">
       <Logo />
 
       <div
@@ -72,31 +101,12 @@ const SignUp = () => {
           onChange={handleChange}
         />
 
-        <button
-          style={{
-            width: '100%',
-            padding: '1rem',
-            borderRadius: '.5rem',
-            outline: 'none',
-            border: '1px solid #204ce9',
-            backgroundColor: '#2552f4',
-            color: '#f4f4f4',
-            boxShadow: '0 12px 32px 2px rgba(0,0,0,0.16)',
-            cursor: 'pointer',
-            fontWeight: 'bold',
-            fontSize: 12,
-          }}
-        >
+        <button className="auth-button" onClick={handleSignUp}>
           Sign Up
         </button>
 
         <p
-          style={{
-            fontSize: 12,
-            color: 'white',
-            userSelect: 'none',
-            cursor: 'pointer',
-          }}
+          className="auth-button__textButton active-button"
           onClick={() => navigate('/login')}
         >
           already have a account? <b>Log In</b>

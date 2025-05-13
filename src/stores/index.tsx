@@ -1,3 +1,4 @@
+export { useAuthStore } from './auth';
 export { useButtonGroupStore } from './buttongroup';
 export { useChatsStore } from './chats';
 export { useContactsStore, useSelectedContactsStore } from './contacts';

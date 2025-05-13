@@ -8,6 +8,15 @@ export default defineConfig({
   server: {
     host: true,
     origin: '*',
+    proxy: {
+      '/api': {
+        target: 'http://01.taehyeongkim.shop',
+        changeOrigin: true,
+        // rewrite: (path) => path.replace(/^\/api/, ''),
+        secure: false,
+        ws: true,
+      },
+    },
   },
   resolve: {
     alias: {

@@ -15,14 +15,14 @@ const SafeAreaContainer = (
   /* states */
 
   const [backgroundCls, setBackgroundCls] = useState(
-    location.pathname === '/chat' ? 'bg-grey' : 'bg-primary'
+    location.pathname === '/chat' ? 'bg-grey' : ''
   );
 
   /* effects */
 
   useEffect(() => {
     const abort = () => {
-      setBackgroundCls('bg-primary');
+      setBackgroundCls('');
     };
 
     if (location.pathname !== '/chat') return abort;

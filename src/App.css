@@ -207,6 +207,22 @@
 .container-profile__edit-item__button:active {
   opacity: 0.5;
 }
+.container-signout {
+  padding-bottom: 1rem;
+}
+.container-signout__button {
+  cursor: pointer;
+  border: none;
+  background-color: #2552f4;
+  color: #fafafa;
+  padding: 1rem;
+  border-radius: 100px;
+  width: calc(100% - 6rem);
+  transition: background-color 0.2s ease;
+}
+.container-signout__button:active {
+  background-color: #16308e;
+}
 
 .chat {
   height: max(100dvh, 280px);
@@ -594,4 +610,29 @@ label {
 .contact-item__recentchat {
   font-size: 12px;
   color: #999;
+}
+
+.auth-button {
+  outline: none;
+  border: 1px solid #204ce9;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: #2552f4;
+  color: #f4f4f4;
+  box-shadow: 0 12px 32px 2px rgba(0, 0, 0, 0.16);
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.auth-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+}
+.auth-button__textButton {
+  cursor: pointer;
+  font-size: 12px;
+  color: white;
+  user-select: none;
 }

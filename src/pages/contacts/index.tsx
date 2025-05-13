@@ -20,6 +20,7 @@ const Contacts = () => {
 
   const [search, setSearch] = useStoreState(usePrimarySearchStore);
 
+  //@ts-ignore
   const [contacts, setContacts] = useStoreState(useContactsStore);
 
   const [selected, setSelected] = useStoreState(useSelectedContactsStore);
@@ -137,7 +138,7 @@ const Contacts = () => {
   }, [search, filtered, buttonGroup, selected]);
 
   return (
-    <main className="relative fullscreen display-flex fd-column">
+    <main className="relative fullscreen display-flex fd-column bg-primary">
       <TopSearchBar
         toggleButtonGroup={toggleButtonGroup}
         handleSearch={handleSearch}
